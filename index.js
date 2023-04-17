@@ -9,8 +9,8 @@ const pipe = (...fns) => firstArg => fns.reduce((returnValue, fn) => fn(returnVa
 const makeTag = tag => str => `<${tag}>${str}</${tag}>`;
 
 // complete this function
-const makePoemHTML = (poem) => {
-  console.log(poem)
+const makePoemHTML = (poemJson) => {
+  console.log(poemJson)
     const makeStanzaHTML = (stanzaLines) => {
       return `<p>${stanzaLines.join("<br/>")}</p>`
     }
