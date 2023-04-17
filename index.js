@@ -9,34 +9,21 @@ const pipe = (...fns) => firstArg => fns.reduce((returnValue, fn) => fn(returnVa
 const makeTag = tag => str => `<${tag}>${str}</${tag}>`;
 
 // complete this function
-const makePoemHTML = (
-  poem => {
-    poem.author = makeTag('em')(poem.author);
-    poem.author = makeTag('h3')(poem.author);
-    poem.author = poem.author.replace(/^<h3>(.*?)<\/h3>$/, '<h3><em>by $1</em></h3>');
-    return poem;
-  },
-
-  poem => {
-    // Place each stanza
-    poem.lines = poem.lines.join('\n').split(/\n\s*\n/);
-    return poem;
-  },
-
-  poem => {
-    // Place <br>
-    poem.lines = poem.lines.map(lines => lines.replace(/\n/g, '<br>'));
-    return poem;
-  },
-
-  poem => {
-    // Return HTML string 
-    const titleHTML = makeTag('h2')(poem.title);
-    const authorHTML = poem.author;
-    const linesHTML = poem.lines.map(lines => makeTag('p')(lines)).join('');
-    return `${titleHTML}\n${authorHTML}\n${linesHTML}`;
-  }
-);
+const makePoemHTML = (poem) => {
+  console.log(poem)
+    const makeStanzaHTML = (stanzaLines) => {
+      return `<p>${stanzaLines.join("<br/>")}</p>`
+    }
+    const stanzas = [[]];
+    for (let line of poemJson[0].lines) {
+      if (line === "") {
+        stanzas.push([]);
+      } else {
+        stanzas[stanzas.length - 1].push(line);
+      }
+    }
+  return `<h2>${poemJson[0].title}</h2><h3><em>by ${poemJson[0].author}</em></h3>${stanzas.map(makeStanzaHTML).join("")}`
+}
 
 // attach a click event to #get-poem
 getPoemBtn.onclick = async function() {
